@@ -1,2 +1,2 @@
 # BackLogDestroyer
-Steam backlog app in collab with @hlq
+Steam backlog app in collab with @hlqGit
