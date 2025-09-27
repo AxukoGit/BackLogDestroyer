@@ -12,69 +12,231 @@
             min-height: 100vh;
             overflow: hidden;
             position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-        }
-        
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            border-radius: 50%;
         }
 
-        .search-container {
-            background-color: #10161f00;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            width: 90%;
-            max-width: 500px;
+        .content-container {
+            position: relative;
             z-index: 1;
+            padding: 3rem;
+            display: flex;
+            gap: 3rem;
+            margin: 3rem;
+            background-color: rgba(27, 40, 56, 0.8);
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
         }
 
-        .search-title {
+        .left-section {
+            flex-shrink: 0;
+        }
+
+        .name-placeholder {
             color: #ffffff;
-            text-align: center;
-            margin-bottom: 1.5rem;
             font-size: 24px;
             font-weight: 500;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            padding: 1rem;
+            background-color: rgba(0, 0, 0, 0.4);
+            border: 2px solid #387099;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
         }
 
-        .search-form {
+        .avatar-placeholder {
+            width: 250px;
+            height: 250px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 2px solid #387099;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-section {
+            flex-grow: 1;
+            padding: 0 1rem;
+        }
+
+        .tabs {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            width: 100%;
         }
 
-        .search-row {
-            display: flex;
-            gap: 10px;
+        .tab {
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid #387099;
+            border-radius: 6px;
+            padding: 1rem;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            text-align: center;
         }
 
-        .search-input {
-            flex: 1;
-            background-color: rgba(0, 0, 0, 0.6);
-            border: 1px solid #387099;
+        .tab:hover {
+            background: rgba(102, 192, 244, 0.1);
+            border-color: #66c0f4;
+        }
+
+        .tab.active {
+            background: rgba(102, 192, 244, 0.2);
+            border-color: #66c0f4;
+            box-shadow: 0 0 15px rgba(102, 192, 244, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding-right: 1rem;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .games-section::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .games-section::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
             border-radius: 4px;
-            padding: 12px;
+        }
+
+        .games-section::-webkit-scrollbar-thumb {
+            background: #387099;
+            border-radius: 4px;
+        }
+
+        .games-section::-webkit-scrollbar-thumb:hover {
+            background: #66c0f4;
+        }
+
+        .games-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 1rem 0;
+        }
+
+        .game-container {
+            position: relative;
+            margin: 0 1rem;
+        }
+
+        .game-placeholder {
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 2px solid #387099;
+            border-radius: 8px;
+            height: 120px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            cursor: pointer;
+        }
+
+        .game-placeholder:hover {
+            border-color: #66c0f4;
+            box-shadow: 0 0 20px rgba(102, 192, 244, 0.4);
+            transform: translateX(10px);
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .game-info {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 2px solid #66c0f4;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 1rem;
             color: #ffffff;
             font-size: 16px;
-            transition: all 0.2s ease;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-            backdrop-filter: blur(2px);
+            animation: fadeIn 0.3s ease;
+            box-shadow: 0 0 30px rgba(102, 192, 244, 0.2);
         }
 
-        .search-input:focus {
-            outline: none;
+        .game-container.active .game-info {
+            display: block;
+        }
+
+        .game-container.active .game-placeholder {
             border-color: #66c0f4;
-            box-shadow: 0 0 5px rgba(102, 192, 244, 0.5);
+            background-color: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 20px rgba(102, 192, 244, 0.4);
         }
 
-        .search-input::placeholder {
-            color: #7ba5bf;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tab-content {
+            display: none;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding-right: 1rem;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .games-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding-top: 0;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .stat-placeholder {
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 2px solid #387099;
+            border-radius: 8px;
+            height: 200px;
+            transition: all 0.2s ease;
+        }
+
+        .stat-placeholder:hover {
+            border-color: #66c0f4;
+            box-shadow: 0 0 20px rgba(102, 192, 244, 0.4);
+            transform: translateY(-5px);
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .link-placeholder {
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 2px solid #387099;
+            border-radius: 8px;
+            height: 80px;
+            transition: all 0.2s ease;
+        }
+
+        .link-placeholder:hover {
+            border-color: #66c0f4;
+            box-shadow: 0 0 20px rgba(102, 192, 244, 0.4);
+            transform: translateX(10px);
+            background-color: rgba(0, 0, 0, 0.8);
         }
 
         .search-button {
@@ -101,74 +263,117 @@
             to { transform: translate(200px, 100px); }
         }
 
-        @keyframes moveStar2 {
-            from { transform: translate(0, 0); }
-            to { transform: translate(-150px, 180px); }
-        }
 
-        @keyframes moveStar3 {
-            from { transform: translate(0, 0); }
-            to { transform: translate(120px, -160px); }
-        }
-
-        @keyframes moveStar4 {
-            from { transform: translate(0, 0); }
-            to { transform: translate(-180px, -120px); }
-        }
-
-        @keyframes moveStar5 {
-            from { transform: translate(0, 0); }
-            to { transform: translate(160px, -200px); }
-        }
-
-        @keyframes moveStar6 {
-            from { transform: translate(0, 0); }
-            to { transform: translate(-200px, -180px); }
-        }
     </style>
 </head>
 <body>
-    <div class="search-container">
-        <h1 class="search-title">BackLogDestroyer</h1>
-        <form class="search-form">
-            <div class="search-row">
-                <input type="text" class="search-input" placeholder="Enter Steam URL or ID..." aria-label="Steam profile search">
-                <button type="submit" class="search-button">Search Profile</button>
+    <div class="content-container">
+        <div class="left-section">
+            <div class="name-placeholder">Username</div>
+            <div class="avatar-placeholder"></div>
+            <div class="tabs">
+                <button class="tab active" onclick="openTab(event, 'games')">Games</button>
+                <button class="tab" onclick="openTab(event, 'stats')">Stats</button>
+                <button class="tab" onclick="openTab(event, 'links')">Other Links</button>
             </div>
-        </form>
+        </div>
+        <div class="content-section">
+            <div id="games" class="tab-content active">
+                <div class="games-grid">
+                    <div class="game-container">
+                        <div class="game-placeholder" onclick="toggleGameInfo(this)">Game 1</div>
+                        <div class="game-info">Game Info</div>
+                    </div>
+                    <div class="game-container">
+                        <div class="game-placeholder" onclick="toggleGameInfo(this)">Game 2</div>
+                        <div class="game-info">Game Info</div>
+                    </div>
+                    <div class="game-container">
+                        <div class="game-placeholder" onclick="toggleGameInfo(this)">Game 3</div>
+                        <div class="game-info">Game Info</div>
+                    </div>
+                    <div class="game-container">
+                        <div class="game-placeholder" onclick="toggleGameInfo(this)">Game 4</div>
+                        <div class="game-info">Game Info</div>
+                    </div>
+                    <div class="game-container">
+                        <div class="game-placeholder" onclick="toggleGameInfo(this)">Game 5</div>
+                        <div class="game-info">Game Info</div>
+                    </div>
+                    <div class="game-container">
+                        <div class="game-placeholder" onclick="toggleGameInfo(this)">Game 6</div>
+                        <div class="game-info">Game Info</div>
+                    </div>
+                    <div class="game-container">
+                        <div class="game-placeholder" onclick="toggleGameInfo(this)">Game 7</div>
+                        <div class="game-info">Game Info</div>
+                    </div>
+                    <div class="game-container">
+                        <div class="game-placeholder" onclick="toggleGameInfo(this)">Game 8</div>
+                        <div class="game-info">Game Info</div>
+                    </div>
+                    <div class="game-container">
+                        <div class="game-placeholder" onclick="toggleGameInfo(this)">Game 9</div>
+                        <div class="game-info">Game Info</div>
+                    </div>
+                    <div class="game-container">
+                        <div class="game-placeholder" onclick="toggleGameInfo(this)">Game 10</div>
+                        <div class="game-info">Game Info</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="stats" class="tab-content">
+                <div class="stats-container">
+                    <div class="stat-placeholder"></div>
+                    <div class="stat-placeholder"></div>
+                    <div class="stat-placeholder"></div>
+                </div>
+            </div>
+
+            <div id="links" class="tab-content">
+                <div class="links-container">
+                    <div class="link-placeholder"></div>
+                    <div class="link-placeholder"></div>
+                    <div class="link-placeholder"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        function createStars() {
-            const numStars = 400;
-            for (let i = 0; i < numStars; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                
-                // Random initial position
-                star.style.left = Math.random() * 100 + 'vw';
-                star.style.top = Math.random() * 100 + 'vh';
-                
-                // Random brightness
-                const brightness = 0.2 + Math.random() * 0.8;
-                star.style.background = `rgba(255, 255, 255, ${brightness})`;
-                
-                // Random size (slightly varied)
-                const size = 1 + Math.random() * 1.5;
-                star.style.width = size + 'px';
-                star.style.height = size + 'px';
-                
-                // Random animation with more patterns
-                const animationName = 'moveStar' + ((i % 6) + 1);
-                const duration = 20 + Math.random() * 40;
-                const delay = Math.random() * -40;
-                
-                star.style.animation = `${animationName} ${duration}s linear ${delay}s infinite alternate-reverse`;
-                
-                document.body.appendChild(star);
-            }
+        function toggleGameInfo(element) {
+            // Close any other open game info
+            const allContainers = document.querySelectorAll('.game-container');
+            allContainers.forEach(container => {
+                if (container !== element.parentElement) {
+                    container.classList.remove('active');
+                }
+            });
+
+            // Toggle the clicked game info
+            element.parentElement.classList.toggle('active');
         }
-        window.onload = createStars;
+
+        function openTab(evt, tabName) {
+            // Hide all tab content
+            const tabContent = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContent.length; i++) {
+                tabContent[i].classList.remove("active");
+            }
+
+            // Remove active class from all tabs
+            const tabs = document.getElementsByClassName("tab");
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+
+            // Show the selected tab content and mark the button as active
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+
     </script>
 </body>
 </html>
