@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BackLogDestroyer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0e141b;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+        }
+        
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            border-radius: 50%;
+        }
+
+        .search-container {
+            background-color: #10161f00;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 500px;
+            z-index: 1;
+        }
+
+        .search-title {
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        .search-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-input {
+            flex: 1;
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 1px solid #387099;
+            border-radius: 4px;
+            padding: 12px;
+            color: #ffffff;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            backdrop-filter: blur(2px);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #66c0f4;
+            box-shadow: 0 0 5px rgba(102, 192, 244, 0.5);
+        }
+
+        .search-input::placeholder {
+            color: #7ba5bf;
+        }
+
+        .search-button {
+            background-color: #66c0f4;
+            border: none;
+            border-radius: 4px;
+            padding: 12px 24px;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+        }
+
+        .search-button:hover {
+            background-color: #66c0f4;
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(102, 192, 244, 0.4);
+        }
+
+        @keyframes moveStar1 {
+            from { transform: translate(0, 0); }
+            to { transform: translate(200px, 100px); }
+        }
+
+        @keyframes moveStar2 {
+            from { transform: translate(0, 0); }
+            to { transform: translate(-150px, 180px); }
+        }
+
+        @keyframes moveStar3 {
+            from { transform: translate(0, 0); }
+            to { transform: translate(120px, -160px); }
+        }
+
+        @keyframes moveStar4 {
+            from { transform: translate(0, 0); }
+            to { transform: translate(-180px, -120px); }
+        }
+
+        @keyframes moveStar5 {
+            from { transform: translate(0, 0); }
+            to { transform: translate(160px, -200px); }
+        }
+
+        @keyframes moveStar6 {
+            from { transform: translate(0, 0); }
+            to { transform: translate(-200px, -180px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <h1 class="search-title">BackLogDestroyer</h1>
+        <form class="search-form">
+            <div class="search-row">
+                <input type="text" class="search-input" placeholder="Enter Steam URL or ID..." aria-label="Steam profile search">
+                <button type="submit" class="search-button">Search Profile</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function createStars() {
+            const numStars = 400;
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Random initial position
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                
+                // Random brightness
+                const brightness = 0.2 + Math.random() * 0.8;
+                star.style.background = `rgba(255, 255, 255, ${brightness})`;
+                
+                // Random size (slightly varied)
+                const size = 1 + Math.random() * 1.5;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                
+                // Random animation with more patterns
+                const animationName = 'moveStar' + ((i % 6) + 1);
+                const duration = 20 + Math.random() * 40;
+                const delay = Math.random() * -40;
+                
+                star.style.animation = `${animationName} ${duration}s linear ${delay}s infinite alternate-reverse`;
+                
+                document.body.appendChild(star);
+            }
+        }
+        window.onload = createStars;
+    </script>
+</body>
+</html>
